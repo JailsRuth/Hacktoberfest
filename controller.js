@@ -57,6 +57,17 @@ function handleRequest(req, res) {
       res.writeHead(200, { "Content-Type": "application/json" });
       res.end(JSON.stringify({ status: "ok", uptime: process.uptime() }));
       return;
+    //New route: API version info
+    case "/api/version":
+      res.writeHead(200, { "Content-Type": "application/json" });
+      res.end(
+        JSON.stringify({
+          version: "1.0.0",
+          name: "MyApp",
+          environment: process.env.NODE_ENV || "development",
+        })
+      );
+      break;
 
     // 404 handler
     default:
