@@ -53,6 +53,10 @@ function handleRequest(req, res) {
         })
       );
       break;
+    case "/health":
+      res.writeHead(200, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ status: "ok", uptime: process.uptime() }));
+      return;
 
     // 404 handler
     default:
