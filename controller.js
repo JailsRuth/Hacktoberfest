@@ -71,8 +71,15 @@ function handleRequest(req, res) {
 
     // 404 handler
     default:
-      res.writeHead(404);
-      res.end("404 Not Found\n");
+      if (req.url.startsWith("/api/")) {
+        res.writeHead(404, { "Content-Type": "application/json" });
+        res.end(
+          JSON.stringify({ error: "API endpoint not found", path: req.url })
+        );
+      } else {
+        res.writeHead(404);
+        res.end("404 Not Found\n");
+      }
       break;
   }
 }
