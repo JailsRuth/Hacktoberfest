@@ -2,10 +2,10 @@
 const http = require("http");
 const handleRequest = require("./controller");
 const connectDB = require("./config");
+const timestampMiddleware = require("./timestampMiddleware"); // ✅ New
 
 const PORT = 3000;
 
-// Simple request logger
 function logRequest(req, res) {
   const start = Date.now();
   res.on("finish", () => {
@@ -14,10 +14,11 @@ function logRequest(req, res) {
   });
 }
 
-// Wrap the handler
 const server = http.createServer((req, res) => {
-  logRequest(req, res);
-  handleRequest(req, res);
+  timestampMiddleware(req, res, () => {
+    logRequest(req, res);
+    handleRequest(req, res);
+  });
 });
 
 connectDB();
