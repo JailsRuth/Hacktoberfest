@@ -68,6 +68,15 @@ function handleRequest(req, res) {
         })
       );
       break;
+    case "/api/random":
+      res.writeHead(200, { "Content-Type": "application/json" });
+      res.end(
+        JSON.stringify({
+          number: Math.floor(Math.random() * 100),
+          generatedAt: new Date(),
+        })
+      );
+      break;
 
     // 404 handler
     default:
